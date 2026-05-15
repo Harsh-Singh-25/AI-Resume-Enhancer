@@ -1,0 +1,114 @@
+.button {
+    // ── Base ─────────────────────────────────
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  
+    border: none;
+    outline: none;
+    padding-inline: 1.5rem;
+    padding-block: 0.75rem;
+    border-radius: 1rem;
+    cursor: pointer;
+  
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    user-select: none;
+  
+    // ── 3D depth via box-shadow ───────────────
+    // offset-y = depth thickness, no blur, solid color
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+  
+    // Smooth lift + shadow transition
+    transition:
+      transform      0.12s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow     0.12s ease,
+      background     0.2s  ease,
+      filter         0.2s  ease;
+  
+    // Prevent text from shifting during press
+    > * { position: relative; z-index: 1; }
+  
+    // ── Hover — lift up ──────────────────────
+    &:hover:not(:disabled) {
+      transform:  translateY(-3px);
+      box-shadow: 0 9px 0 rgba(0, 0, 0, 0.35);
+      filter:     brightness(1.08);
+    }
+  
+    // ── Active — slam down, eat the shadow ───
+    &:active:not(:disabled) {
+      transform:  translateY(5px);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+      filter:     brightness(0.95);
+      transition:
+        transform  0.07s ease,
+        box-shadow 0.07s ease;
+    }
+  
+    // ── Disabled ─────────────────────────────
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  
+    // ── Primary variant ──────────────────────
+    &.primary-button {
+      background-color: #e1034d;
+      color: #fff;
+  
+      // Tinted floor that matches the button color
+      box-shadow: 0 6px 0 #8a0030;
+  
+      &:hover:not(:disabled) {
+        background-color: #f0145c;
+        box-shadow:       0 9px 0 #8a0030;
+      }
+  
+      &:active:not(:disabled) {
+        box-shadow: 0 1px 0 #8a0030;
+      }
+  
+      // Shimmer sweep on hover
+      overflow: hidden;
+  
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          105deg,
+          transparent 40%,
+          rgba(255, 255, 255, 0.18) 50%,
+          transparent 60%
+        );
+        transform: translateX(-120%);
+        transition: transform 0.5s ease;
+      }
+  
+      &:hover:not(:disabled)::after {
+        transform: translateX(120%);
+      }
+    }
+  
+    // ── Secondary variant (optional) ─────────
+    &.secondary-button {
+      background-color: #1e2535;
+      color: #e6edf3;
+      box-shadow: 0 6px 0 #0a0d14;
+  
+      &:hover:not(:disabled) {
+        background-color: #252d40;
+        box-shadow:       0 9px 0 #0a0d14;
+      }
+  
+      &:active:not(:disabled) {
+        box-shadow: 0 1px 0 #0a0d14;
+      }
+    }
+  }
