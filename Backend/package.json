@@ -24,5 +24,10 @@
     "puppeteer": "^24.43.0",
     "zod": "^4.4.3",
     "zod-to-json-schema": "^3.25.2"
-  }
+  },
+  {
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
 }
